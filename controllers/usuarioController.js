@@ -1,4 +1,7 @@
 'use strict'
+require('../models/usuarioModel');
+const mongoose = require('mongoose');
+const produto = mongoose.model('Usuario');
 function usuarioController(){
 
 }

@@ -1,4 +1,8 @@
 'use strict'
+require('../models/destaqueModel');
+const mongoose = require('mongoose');
+const produto = mongoose.model('Destaque');
+
 function destaqueController(){
 
 }
