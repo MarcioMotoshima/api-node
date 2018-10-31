@@ -1,19 +1,29 @@
 'use strict'
 require('../models/usuarioModel');
-const mongoose = require('mongoose');
-const produto = mongoose.model('Usuario');
+const repository = require('../repositories/usuarioRepositorio');
+
 function usuarioController(){
 
 }
-
 usuarioController.prototype.get = async (req, res)=> {
-    res.status(200).send("usuario");
+    let lista = await new repository().getAll();
+    res.status(200).send(lista);
 };
 usuarioController.prototype.getById = async (req, res)=> {
-    res.status(200).send(`O id passado foi ${req.params.id}`);
+    let produto = await new repository().findById(req.params.id);
+    res.status(200).send(produto);
 };
-usuarioController.prototype.post = async (req, res)=> {};
-usuarioController.prototype.put = async (req, res)=> {};
-usuarioController.prototype.delete = async (req, res)=> {};
+usuarioController.prototype.post = async (req, res)=> {
+    let resultado = await new repository().create(req.body);
+    res.status(201).send(resultado);
+};
+usuarioController.prototype.put = async (req, res)=> {
+    let resultado = new repository().update(req.params.id, req.body); 
+    res.status(202).send(resultado);
+};
+usuarioController.prototype.delete = async (req, res)=> {
+    let deletado = await new repository().delete(req.params.id);
+    res.status(204).send(deletado);
+};
 
 module.exports = usuarioController;
